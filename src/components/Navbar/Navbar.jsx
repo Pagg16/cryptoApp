@@ -22,8 +22,8 @@ function Navbar() {
         </Typography.Title>
         <Button className="navbar__menu-control-container"></Button>
         <Menu
+          selectable={false}
           theme="dark"
-          forceSubMenuRender={true}
           items={[
             {
               key: "1",
