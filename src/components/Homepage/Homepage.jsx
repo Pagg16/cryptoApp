@@ -4,6 +4,7 @@ import { Typography, Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
 import { getCoins } from "../../actions/coinranking";
 import { useDispatch, useSelector } from "react-redux";
+import Cryptocurrency from "../Cryptocurrency/Cryptocurrency";
 
 const { Title } = Typography;
 
@@ -11,8 +12,6 @@ function Homepage() {
   const isLoading = useSelector((state) => state.app.loading);
   const coins = useSelector((state) => state.coins.coins?.data);
   const dispatch = useDispatch();
-
-  console.log(coins);
 
   useEffect(() => {
     // dispatch(getCoins());
@@ -59,6 +58,7 @@ function Homepage() {
           <Link to="/cryptocurrency">Show more</Link>
         </Title>
       </div>
+      <Cryptocurrency simple={10} />
       <div className="homepage__heading-container">
         <Title level={2} className="homepage__heading-title">
           Lasted Crypto News
