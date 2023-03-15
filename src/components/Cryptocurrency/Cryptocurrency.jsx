@@ -8,7 +8,6 @@ import "./cryptocurrency.css";
 
 function Cryptocurrency({ simple }) {
   const [searchThrem, setSearchThrem] = useState("");
-
   const isLoading = useSelector((state) => state.app.loading);
   const coins = useSelector((state) => state.coins.coins?.data?.coins);
   const [filterCoins, setFilterCoins] = useState(coins);
@@ -23,7 +22,7 @@ function Cryptocurrency({ simple }) {
   function arrayTruncation(arr) {
     const shortArr = [];
 
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr?.length; i++) {
       shortArr.push(arr[i]);
       if (i === simple) break;
     }
