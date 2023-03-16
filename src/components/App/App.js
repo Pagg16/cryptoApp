@@ -11,8 +11,8 @@ function App() {
   const typeNews = useSelector((state) => state.news.typeNews);
 
   useEffect(() => {
-    dispatch(getCoins());
-    dispatch(getNews(typeNews));
+    // dispatch(getCoins());
+    // dispatch(getNews(typeNews));
   }, []);
 
   return (
