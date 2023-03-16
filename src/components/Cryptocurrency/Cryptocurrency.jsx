@@ -59,7 +59,7 @@ function Cryptocurrency({ simple }) {
               lg={6}
               className="cryptocurrency__card"
             >
-              <Link to={`/crypto/${elem.uuid}`}>
+              <Link to={`/crypto/:${elem.uuid}`}>
                 <Card
                   title={`${elem.rank}. ${elem.name}`}
                   extra={

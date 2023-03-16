@@ -1,6 +1,6 @@
 import { Layout } from "antd";
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useParams } from "react-router-dom";
 import {
   Homepage,
   Cryptocurrency,

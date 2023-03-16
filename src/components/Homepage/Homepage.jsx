@@ -2,20 +2,15 @@ import React, { useEffect } from "react";
 import millify from "millify";
 import { Typography, Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
-import { getCoins } from "../../actions/coinranking";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Cryptocurrency from "../Cryptocurrency/Cryptocurrency";
+import News from "../News/News";
 
 const { Title } = Typography;
 
 function Homepage() {
   const isLoading = useSelector((state) => state.app.loading);
   const coins = useSelector((state) => state.coins.coins?.data);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // dispatch(getCoins());
-  }, []);
 
   if (isLoading) {
     return <div>Loading</div>;
@@ -67,6 +62,7 @@ function Homepage() {
           <Link to="/news">Show more</Link>
         </Title>
       </div>
+      <News simple={10} />
     </div>
   );
 }
