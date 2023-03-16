@@ -5,6 +5,7 @@ const coinrankingSlice = createSlice({
   initialState: {
     coins: {},
     coinInfo: {},
+    coinPrice: [],
   },
   reducers: {
     setCoins(state, action) {
@@ -13,8 +14,11 @@ const coinrankingSlice = createSlice({
     setCoinInfo(state, action) {
       state.coinInfo = action.payload;
     },
+    setCoinPrice(state, action) {
+      state.coinPrice = action.payload;
+    },
   },
 });
 
 export default coinrankingSlice.reducer;
-export const { setCoins, setCoinInfo } = coinrankingSlice.actions;
+export const { setCoins, setCoinInfo, setCoinPrice } = coinrankingSlice.actions;

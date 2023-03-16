@@ -1,6 +1,6 @@
 import axios from "axios";
 import { hideLoading, showLoading } from "../reduser/appReduser";
-import { setCoinInfo, setCoins } from "../reduser/coinranking";
+import { setCoinInfo, setCoinPrice, setCoins } from "../reduser/coinranking";
 
 const baseUrl = "https://coinranking1.p.rapidapi.com";
 
@@ -61,6 +61,33 @@ export function getCoinInfo(uid, period) {
 
       if (response.status === 200) {
         dispatch(setCoinInfo(response.data));
+      } else {
+        alert("error get");
+      }
+    } catch (e) {
+      console.log(e);
+      alert(e.response?.data.message);
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+}
+
+export function getCoinPrice(uid, period) {
+  const cloneOptions = Object.assign({}, options);
+  cloneOptions.url = baseUrl + "/coin/" + uid + "/history";
+  cloneOptions.params = {
+    referenceCurrencyUuid: "yhjMzLPhuIDl",
+    timePeriod: period,
+  };
+
+  return async (dispatch) => {
+    dispatch(showLoading());
+    try {
+      const response = await axios.request(cloneOptions);
+
+      if (response.status === 200) {
+        dispatch(setCoinPrice(response.data));
       } else {
         alert("error get");
       }

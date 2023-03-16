@@ -15,7 +15,8 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getCoinInfo } from "../../actions/coinranking";
+import { getCoinInfo, getCoinPrice } from "../../actions/coinranking";
+import LineChar from "../LineChar/LineChar";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -27,10 +28,9 @@ function CryptoDetals() {
   const coinId = useParams().coinId.slice(1);
   const [timePeriod, setTimePeriod] = useState("7d");
 
-  console.log(coinInfo);
-
   useEffect(() => {
     // dispatch(getCoinInfo(coinId, timePeriod));
+    // dispatch(getCoinPrice(coinId, timePeriod));
   }, []);
 
   const stats = [
@@ -113,6 +113,10 @@ function CryptoDetals() {
             </Option>
           ))}
         </Select>
+        <LineChar
+          currentPrice={millify(coinInfo?.name)}
+          coinName={coinInfo?.name}
+        />
         <Col className="crypto-detals__stats-container">
           <Col className="crypto-detals__coin-value-statistics">
             <Col className="crypto-detals__coin-value-heading">
