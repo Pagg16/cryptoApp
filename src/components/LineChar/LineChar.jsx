@@ -2,51 +2,77 @@ import React, { useMemo } from "react";
 import { Line } from "react-chartjs-2";
 import { Col, Row, Typography } from "antd";
 import { useSelector } from "react-redux";
+import Chart from "chart.js/auto";
 const { Title } = Typography;
 
 function LineChar({ currentPrice, coinName }) {
-  const coinHistory = useSelector(
-    (state) => state.coins.coinInfo.data?.coinPrice
-  );
+  const coinHistory = useSelector((state) => state.coins.coinPrice.data);
 
-  const { data, options } = useMemo(() => {
-    const arrPrice = [];
-    const arrTime = [];
+  // const { data, options } = useMemo(() => {
+  //   const arrPrice = [];
+  //   const arrTime = [];
 
-    for (let i = 0; i < coinHistory?.history.length; i++) {
-      arrPrice.push(coinHistory?.history[i].price);
-      arrTime.push(
-        new Date(coinHistory?.history[i].timestamp).toLocaleDateString()
-      );
-    }
+  //   for (let i = 0; i < coinHistory?.history.length; i++) {
+  //     arrPrice.push(coinHistory?.history[i].price);
+  //     arrTime.push(
+  //       new Date(coinHistory?.history[i].timestamp).toLocaleDateString()
+  //     );
+  //   }
 
-    const data = {
-      labels: arrTime,
-      datasets: [
-        {
-          lable: "Price in USD",
-          data: arrPrice,
-          fill: false,
-          backgroundColor: "#0071bd",
-          borderColor: "#0071bd",
-        },
-      ],
-    };
+  //   const data = {
+  //     labels: arrTime,
+  //     datasets: [
+  //       {
+  //         lable: "Price in USD",
+  //         data: arrPrice,
+  //         fill: false,
+  //         backgroundColor: "#0071bd",
+  //         borderColor: "#0071bd",
+  //       },
+  //     ],
+  //   };
 
-    const options = {
-      scalse: {
-        yAxed: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
-          },
-        ],
+  //   const options = {
+  //     scalse: {
+  //       yAxed: [
+  //         {
+  //           ticks: {
+  //             beginAtZero: true,
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   };
+
+  //   return { data, options };
+  // }, [coinHistory]);
+
+  const arrPrice = [];
+  const arrTime = [];
+
+  for (let i = 0; i < coinHistory?.history.length; i++) {
+    arrPrice.push(coinHistory?.history[i].price);
+    arrTime.push(
+      new Date(coinHistory?.history[i].timestamp).toLocaleDateString()
+    );
+  }
+
+  const data = {
+    labels: arrTime,
+    datasets: [
+      {
+        label: "Price in USD",
+        data: arrPrice,
+        fill: false,
+        backgroundColor: "#0071bd",
+        borderColor: "#0071bd",
       },
-    };
+    ],
+  };
 
-    return { data, options };
-  }, [coinHistory]);
+  const options = {
+    resizeDelay: 100,
+  };
 
   return (
     <div className="line-char">

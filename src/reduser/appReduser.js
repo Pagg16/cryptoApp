@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const appReduser = createSlice({
   name: "coinrankingSlice",
   initialState: {
-    loading: false,
+    loading: true,
   },
   reducers: {
     showLoading(state) {

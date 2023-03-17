@@ -1,6 +1,12 @@
 import axios from "axios";
 import { hideLoading, showLoading } from "../reduser/appReduser";
-import { setCoinInfo, setCoinPrice, setCoins } from "../reduser/coinranking";
+import {
+  hideLoadingCoins,
+  setCoinInfo,
+  setCoinPrice,
+  setCoins,
+  showloadingCoins,
+} from "../reduser/coinranking";
 
 const baseUrl = "https://coinranking1.p.rapidapi.com";
 
@@ -14,7 +20,7 @@ const options = {
   },
 };
 
-export function getCoins() {
+export function getCoins(res, rej) {
   const cloneOptions = Object.assign({}, options);
   cloneOptions.url = baseUrl + "/coins";
   cloneOptions.params = {
@@ -28,25 +34,25 @@ export function getCoins() {
   };
 
   return async (dispatch) => {
-    dispatch(showLoading());
     try {
       const response = await axios.request(cloneOptions);
 
       if (response.status === 200) {
-        dispatch(setCoins(response.data));
+        await dispatch(setCoins(response.data));
+        res();
       } else {
-        alert("error get");
+        alert("error get coins");
       }
     } catch (e) {
+      rej();
       console.log(e);
       alert(e.response?.data.message);
     } finally {
-      dispatch(hideLoading());
     }
   };
 }
 
-export function getCoinInfo(uid, period) {
+export function getCoinInfo(uid, period, res, rej) {
   const cloneOptions = Object.assign({}, options);
   cloneOptions.url = baseUrl + "/coin/" + uid;
   cloneOptions.params = {
@@ -55,25 +61,24 @@ export function getCoinInfo(uid, period) {
   };
 
   return async (dispatch) => {
-    dispatch(showLoading());
     try {
       const response = await axios.request(cloneOptions);
 
       if (response.status === 200) {
-        dispatch(setCoinInfo(response.data));
+        await dispatch(setCoinInfo(response.data));
+        res();
       } else {
         alert("error get");
       }
     } catch (e) {
+      rej();
       console.log(e);
       alert(e.response?.data.message);
-    } finally {
-      dispatch(hideLoading());
     }
   };
 }
 
-export function getCoinPrice(uid, period) {
+export function getCoinPrice(uid, period, res, rej) {
   const cloneOptions = Object.assign({}, options);
   cloneOptions.url = baseUrl + "/coin/" + uid + "/history";
   cloneOptions.params = {
@@ -82,20 +87,19 @@ export function getCoinPrice(uid, period) {
   };
 
   return async (dispatch) => {
-    dispatch(showLoading());
     try {
       const response = await axios.request(cloneOptions);
 
       if (response.status === 200) {
-        dispatch(setCoinPrice(response.data));
+        await dispatch(setCoinPrice(response.data));
+        res();
       } else {
         alert("error get");
       }
     } catch (e) {
+      rej();
       console.log(e);
       alert(e.response?.data.message);
-    } finally {
-      dispatch(hideLoading());
     }
   };
 }

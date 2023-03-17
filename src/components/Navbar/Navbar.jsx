@@ -41,12 +41,14 @@ function Navbar() {
         <Typography.Title level={2} className="navbar__logo">
           <Link to="/">Cryptocurrency</Link>
         </Typography.Title>
-        <Button
-          className="navbar__menu-control-container"
-          onClick={() => setActiveMenu((state) => !state)}
-        >
-          <MenuOutlined />
-        </Button>
+        {activeMenu && (
+          <Button
+            className="navbar__menu-control-container"
+            onClick={() => setActiveMenu((state) => !state)}
+          >
+            <MenuOutlined />
+          </Button>
+        )}
         {activeMenu && (
           <Menu
             selectable={false}

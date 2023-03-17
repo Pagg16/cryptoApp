@@ -15,7 +15,7 @@ const options = {
   },
 };
 
-export function getNews(category) {
+export function getNews(category, res, rej) {
   const cloneOptions = Object.assign({}, options);
   cloneOptions.url = baseUrl + "/search";
   cloneOptions.params = {
@@ -27,16 +27,14 @@ export function getNews(category) {
   };
 
   return async (dispatch) => {
-    dispatch(showLoading());
     try {
       const response = await axios.request(cloneOptions);
-
-      dispatch(setNews(response.data));
+      await dispatch(setNews(response.data));
+      res();
     } catch (e) {
+      rej();
       console.log(e);
       alert(e);
-    } finally {
-      dispatch(hideLoading());
     }
   };
 }

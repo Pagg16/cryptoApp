@@ -17,11 +17,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getCoinInfo, getCoinPrice } from "../../actions/coinranking";
 import LineChar from "../LineChar/LineChar";
+import { hideLoadingCoins, showloadingCoins } from "../../reduser/coinranking";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 function CryptoDetals() {
+  const isLoading = useSelector((state) => state.coins.loading);
   const coinInfo = useSelector((state) => state.coins.coinInfo.data?.coin);
   const dispatch = useDispatch();
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
@@ -29,9 +31,18 @@ function CryptoDetals() {
   const [timePeriod, setTimePeriod] = useState("7d");
 
   useEffect(() => {
-    // dispatch(getCoinInfo(coinId, timePeriod));
-    // dispatch(getCoinPrice(coinId, timePeriod));
+    dispatch(showloadingCoins());
+    Promise.all([
+      new Promise((res, rej) =>
+        dispatch(getCoinInfo(coinId, timePeriod, res, rej))
+      ),
+      new Promise((res, rej) =>
+        dispatch(getCoinPrice(coinId, timePeriod, res, rej))
+      ),
+    ]).finally(() => dispatch(hideLoadingCoins()));
   }, []);
+
+  if (isLoading) return <div>Loading</div>;
 
   const stats = [
     {
@@ -107,14 +118,14 @@ function CryptoDetals() {
           placeholder="Select Time Period"
           onChange={(value) => setTimePeriod(value)}
         >
-          {time.map((date) => (
-            <Option value={date} key={date}>
+          {time.map((date, index) => (
+            <Option key={index} value={date}>
               {date}
             </Option>
           ))}
         </Select>
         <LineChar
-          currentPrice={millify(coinInfo?.name)}
+          currentPrice={millify(+coinInfo?.price || 0)}
           coinName={coinInfo?.name}
         />
         <Col className="crypto-detals__stats-container">
@@ -127,7 +138,7 @@ function CryptoDetals() {
             </Col>
           </Col>
           {stats.map(({ title, value, icon }) => (
-            <Col className="crypto-detals__coin-stats">
+            <Col className="crypto-detals__coin-stats" key={title}>
               <Col className="crypto-detals__coin-stats-name">
                 <Text>{icon}</Text>
                 <Text>{title}</Text>
@@ -146,8 +157,8 @@ function CryptoDetals() {
               <p>An overvi showing the stats of all cryptocurrencies</p>
             </Col>
           </Col>
-          {genericStats.map(({ title, value, icon }) => (
-            <Col className="crypto-detals__coin-stats">
+          {genericStats.map(({ title, value, icon }, index) => (
+            <Col className="crypto-detals__coin-stats" key={index}>
               <Col className="crypto-detals__coin-stats-name">
                 <Text>{icon}</Text>
                 <Text>{title}</Text>
@@ -160,15 +171,15 @@ function CryptoDetals() {
           <Row className="crypto-detals__coin-desc">
             <Title level={3} className="crypto-detals__coin-detals-heading">
               What is {coinInfo?.name}
-              {HTMLReactParser(coinInfo?.description)}
+              {coinInfo?.description}
             </Title>
           </Row>
           <Col className="crypto-detals__coin-links">
             <Title level={3} className="crypto-detals__coin-detals-heading">
               {coinInfo?.name} Links
             </Title>
-            {coinInfo?.links.map((link) => (
-              <Row className="crypto-detals__coin-link" key={link.name}>
+            {coinInfo?.links.map((link, index) => (
+              <Row className="crypto-detals__coin-link" key={index}>
                 <Title level={5} className="crypto-detals__link-name">
                   {link.type}
                 </Title>

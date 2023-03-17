@@ -5,7 +5,8 @@ const coinrankingSlice = createSlice({
   initialState: {
     coins: {},
     coinInfo: {},
-    coinPrice: [],
+    coinPrice: {},
+    loading: false,
   },
   reducers: {
     setCoins(state, action) {
@@ -17,8 +18,20 @@ const coinrankingSlice = createSlice({
     setCoinPrice(state, action) {
       state.coinPrice = action.payload;
     },
+    showloadingCoins(state) {
+      state.loading = true;
+    },
+    hideLoadingCoins(state) {
+      state.loading = false;
+    },
   },
 });
 
 export default coinrankingSlice.reducer;
-export const { setCoins, setCoinInfo, setCoinPrice } = coinrankingSlice.actions;
+export const {
+  setCoins,
+  setCoinInfo,
+  setCoinPrice,
+  showloadingCoins,
+  hideLoadingCoins,
+} = coinrankingSlice.actions;
