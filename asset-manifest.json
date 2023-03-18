@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Pagg16/cryptoApp.git/static/css/main.26fd8d0d.css",
-    "main.js": "/Pagg16/cryptoApp.git/static/js/main.f3c95f08.js",
-    "static/media/search.png": "/Pagg16/cryptoApp.git/static/media/search.fdf46a82e2b777f8b8a9.png",
-    "static/media/spiderman.png": "/Pagg16/cryptoApp.git/static/media/spiderman.d570c0f5bc75236f36ae.png",
-    "static/media/crypto.png": "/Pagg16/cryptoApp.git/static/media/crypto.c396b2fa4f3ac0f7cccd.png",
-    "static/media/select.png": "/Pagg16/cryptoApp.git/static/media/select.95144a30f73d60e4e9e9.png",
-    "index.html": "/Pagg16/cryptoApp.git/index.html",
-    "main.26fd8d0d.css.map": "/Pagg16/cryptoApp.git/static/css/main.26fd8d0d.css.map",
-    "main.f3c95f08.js.map": "/Pagg16/cryptoApp.git/static/js/main.f3c95f08.js.map"
+    "main.css": "/cryptoApp/static/css/main.26fd8d0d.css",
+    "main.js": "/cryptoApp/static/js/main.2ec9d6bb.js",
+    "static/media/search.png": "/cryptoApp/static/media/search.fdf46a82e2b777f8b8a9.png",
+    "static/media/spiderman.png": "/cryptoApp/static/media/spiderman.d570c0f5bc75236f36ae.png",
+    "static/media/crypto.png": "/cryptoApp/static/media/crypto.c396b2fa4f3ac0f7cccd.png",
+    "static/media/select.png": "/cryptoApp/static/media/select.95144a30f73d60e4e9e9.png",
+    "index.html": "/cryptoApp/index.html",
+    "main.26fd8d0d.css.map": "/cryptoApp/static/css/main.26fd8d0d.css.map",
+    "main.2ec9d6bb.js.map": "/cryptoApp/static/js/main.2ec9d6bb.js.map"
   },
   "entrypoints": [
     "static/css/main.26fd8d0d.css",
-    "static/js/main.f3c95f08.js"
+    "static/js/main.2ec9d6bb.js"
   ]
 }
