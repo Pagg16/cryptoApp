@@ -72,7 +72,7 @@ function Navbar() {
             theme="dark"
             onClick={() => {
               scrollZeroPos();
-              setActiveMenu((state) => !state);
+              if (screenSize < 800) setActiveMenu((state) => !state);
             }}
             items={[
               {
