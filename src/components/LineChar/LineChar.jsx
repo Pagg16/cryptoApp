@@ -3,80 +3,52 @@ import { Line } from "react-chartjs-2";
 import { Col, Row, Typography } from "antd";
 import { useSelector } from "react-redux";
 import Chart from "chart.js/auto";
+import "./lineChar.css";
 const { Title } = Typography;
 
-function LineChar({ currentPrice, coinName }) {
+function LineChar({ timePeriod, SelectElem, currentPrice, coinName }) {
   const coinHistory = useSelector((state) => state.coins.coinPrice.data);
 
-  // const { data, options } = useMemo(() => {
-  //   const arrPrice = [];
-  //   const arrTime = [];
+  const { data, options } = useMemo(() => {
+    const arrPrice = [];
+    const arrTime = [];
 
-  //   for (let i = 0; i < coinHistory?.history.length; i++) {
-  //     arrPrice.push(coinHistory?.history[i].price);
-  //     arrTime.push(
-  //       new Date(coinHistory?.history[i].timestamp).toLocaleDateString()
-  //     );
-  //   }
+    for (let i = 0; i < coinHistory?.history.length; i++) {
+      arrTime.push(
+        new Date(coinHistory?.history[i].timestamp * 1000).toLocaleDateString()
+      );
+      arrPrice.push(coinHistory?.history[i].price);
+    }
 
-  //   const data = {
-  //     labels: arrTime,
-  //     datasets: [
-  //       {
-  //         lable: "Price in USD",
-  //         data: arrPrice,
-  //         fill: false,
-  //         backgroundColor: "#0071bd",
-  //         borderColor: "#0071bd",
-  //       },
-  //     ],
-  //   };
+    const data = {
+      labels: arrTime,
+      datasets: [
+        {
+          label: "Price in USD",
+          data: arrPrice,
+          fill: false,
+          backgroundColor: "#0071bd",
+          borderColor: "#0071bd",
+        },
+      ],
+    };
 
-  //   const options = {
-  //     scalse: {
-  //       yAxed: [
-  //         {
-  //           ticks: {
-  //             beginAtZero: true,
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   };
-
-  //   return { data, options };
-  // }, [coinHistory]);
-
-  const arrPrice = [];
-  const arrTime = [];
-
-  for (let i = 0; i < coinHistory?.history.length; i++) {
-    arrPrice.push(coinHistory?.history[i].price);
-    arrTime.push(
-      new Date(coinHistory?.history[i].timestamp).toLocaleDateString()
-    );
-  }
-
-  const data = {
-    labels: arrTime,
-    datasets: [
-      {
-        label: "Price in USD",
-        data: arrPrice,
-        fill: false,
-        backgroundColor: "#0071bd",
-        borderColor: "#0071bd",
+    const options = {
+      resizeDelay: 100,
+      scales: {
+        x: {
+          reverse: true,
+        },
       },
-    ],
-  };
+    };
 
-  const options = {
-    resizeDelay: 100,
-  };
+    return { data, options };
+  }, [coinHistory]);
 
   return (
     <div className="line-char">
       <Row className="line-char__header">
+        {SelectElem}
         <Title className="line-char__title" level={2}>
           {coinName} Price Chart
         </Title>
@@ -85,7 +57,7 @@ function LineChar({ currentPrice, coinName }) {
             {coinHistory?.change}%
           </Title>
           <Title level={5} className="line-char__current-price">
-            Current {coinName} Price: $ {currentPrice}%
+            Current {coinName} Price: $ {currentPrice}
           </Title>
         </Col>
       </Row>

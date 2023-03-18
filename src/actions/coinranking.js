@@ -5,6 +5,7 @@ import {
   setCoinInfo,
   setCoinPrice,
   setCoins,
+  setExchanges,
   showloadingCoins,
 } from "../reduser/coinranking";
 
@@ -100,6 +101,35 @@ export function getCoinPrice(uid, period, res, rej) {
       rej();
       console.log(e);
       alert(e.response?.data.message);
+    }
+  };
+}
+
+export function getexchanges(uid, setIsLoading) {
+  const cloneOptions = Object.assign({}, options);
+  cloneOptions.url = baseUrl + "/coin/" + uid + "/exchanges";
+  cloneOptions.params = {
+    referenceCurrencyUuid: "yhjMzLPhuIDl",
+    limit: "50",
+    offset: "0",
+    orderBy: "24hVolume",
+    orderDirection: "desc",
+  };
+
+  return async (dispatch) => {
+    try {
+      const response = await axios.request(cloneOptions);
+
+      if (response.status === 200) {
+        await dispatch(setExchanges(response.data));
+      } else {
+        alert("error get");
+      }
+    } catch (e) {
+      console.log(e);
+      alert(e.response?.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 }

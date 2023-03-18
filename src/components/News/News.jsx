@@ -6,6 +6,8 @@ import { getNews } from "../../actions/cryptoNews";
 import "./news.css";
 import { typeNewsSet } from "../../reduser/cryptoNews";
 
+import selectIcons from "../../images/select.png";
+
 const { Text, Title } = Typography;
 const { Option } = Select;
 
@@ -37,9 +39,14 @@ function News({ simple }) {
 
   return (
     <div className="news">
-      <Row gutter={[24, 24]}>
+      <Row gutter={[24, 24]} className="news__row">
         {!!!simple && (
-          <Col span={24}>
+          <Col span={24} className="news__col">
+            <img
+              src={selectIcons}
+              alt="select-icon"
+              className="news__select-icon"
+            />
             <Select
               value="Cryptocurrency"
               showSearch
@@ -48,7 +55,13 @@ function News({ simple }) {
               optionFilterProp="children"
               onChange={(value) => {
                 dispatch(typeNewsSet(value));
-                dispatch(getNews(value));
+                dispatch(
+                  getNews(
+                    value,
+                    () => {},
+                    () => {}
+                  )
+                );
               }}
               filterOption={(input, option) =>
                 option.children.toLoweCase().indexOf(input.toLowerCase()) >= 0
@@ -91,15 +104,15 @@ function News({ simple }) {
                     : elem.description}
                 </p>
                 <div>
-                  <div>
+                  <div className="news__card-avatar-container">
+                    <Text>
+                      {moment(elem.datePublished).startOf("ss").fromNow()}
+                    </Text>
                     {!!elem.provider[0]?.image?.thumbnail?.contentUrl && (
                       <Avatar
                         src={elem.provider[0]?.image?.thumbnail?.contentUrl}
                       ></Avatar>
                     )}
-                    <Text>
-                      {moment(elem.datePublished).startOf("ss").fromNow()}
-                    </Text>
                   </div>
                 </div>
               </a>

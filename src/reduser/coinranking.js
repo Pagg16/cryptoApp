@@ -7,6 +7,7 @@ const coinrankingSlice = createSlice({
     coinInfo: {},
     coinPrice: {},
     loading: false,
+    exchanges: {},
   },
   reducers: {
     setCoins(state, action) {
@@ -24,6 +25,9 @@ const coinrankingSlice = createSlice({
     hideLoadingCoins(state) {
       state.loading = false;
     },
+    setExchanges(state, action) {
+      state.exchanges = action.payload;
+    },
   },
 });
 
@@ -34,4 +38,5 @@ export const {
   setCoinPrice,
   showloadingCoins,
   hideLoadingCoins,
+  setExchanges,
 } = coinrankingSlice.actions;

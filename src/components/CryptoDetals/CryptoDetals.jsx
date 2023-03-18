@@ -18,6 +18,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCoinInfo, getCoinPrice } from "../../actions/coinranking";
 import LineChar from "../LineChar/LineChar";
 import { hideLoadingCoins, showloadingCoins } from "../../reduser/coinranking";
+import Loader from "../Loader/Loader";
+
+import "./cryptoDetals.css";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -40,9 +43,7 @@ function CryptoDetals() {
         dispatch(getCoinPrice(coinId, timePeriod, res, rej))
       ),
     ]).finally(() => dispatch(hideLoadingCoins()));
-  }, []);
-
-  if (isLoading) return <div>Loading</div>;
+  }, [timePeriod]);
 
   const stats = [
     {
@@ -100,97 +101,122 @@ function CryptoDetals() {
     },
   ];
 
+  const SelectElem = (
+    <Select
+      defaultValue={timePeriod}
+      className="crypto-detals__select-timeperiod"
+      placeholder="Select Time Period"
+      onChange={(value) => setTimePeriod(value)}
+    >
+      {time.map((date, index) => (
+        <Option key={index} value={date}>
+          {date}
+        </Option>
+      ))}
+    </Select>
+  );
+
   return (
     <div className="crypto-detals">
-      <Col className="crypto-detals__coin-detail-container">
-        <Col className="crypto-detals__coin-heading-container">
-          <Title level={2} className="crypto-detals__coin-name">
-            {coinInfo?.name} Price
-          </Title>
-          <p>
-            {coinInfo?.name} Live price US dollars. View value statistics,
-            marker cap and supply.
-          </p>
-        </Col>
-        <Select
-          defaultValue="7d"
-          className="crypto-detals__select-timeperiod"
-          placeholder="Select Time Period"
-          onChange={(value) => setTimePeriod(value)}
-        >
-          {time.map((date, index) => (
-            <Option key={index} value={date}>
-              {date}
-            </Option>
-          ))}
-        </Select>
-        <LineChar
-          currentPrice={millify(+coinInfo?.price || 0)}
-          coinName={coinInfo?.name}
-        />
-        <Col className="crypto-detals__stats-container">
-          <Col className="crypto-detals__coin-value-statistics">
-            <Col className="crypto-detals__coin-value-heading">
-              <Title level={3} className="crypto-detals__coin-detailes-heading">
-                {coinInfo?.name} Value Statistics
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <Col className="crypto-detals__coin-detail-container">
+            <Col className="crypto-detals__coin-heading-container">
+              <Title level={2} className="crypto-detals__coin-name">
+                {coinInfo?.name} Price
               </Title>
-              <p>An overvi showing the stats of {coinInfo?.name}</p>
+              <p>
+                {coinInfo?.name} Live price US dollars. View value statistics,
+                marker cap and supply.
+              </p>
             </Col>
-          </Col>
-          {stats.map(({ title, value, icon }) => (
-            <Col className="crypto-detals__coin-stats" key={title}>
-              <Col className="crypto-detals__coin-stats-name">
-                <Text>{icon}</Text>
-                <Text>{title}</Text>
+            <LineChar
+              timePeriod={timePeriod}
+              SelectElem={SelectElem}
+              currentPrice={millify(+coinInfo?.price || 0)}
+              coinName={coinInfo?.name}
+            />
+            <div className="crypto-detals__other-info-container">
+              <Col className="crypto-detals__stats-container">
+                <Col className="crypto-detals__coin-value-statistics">
+                  <Col className="crypto-detals__coin-value-heading">
+                    <Title
+                      level={3}
+                      className="crypto-detals__coin-detailes-heading"
+                    >
+                      {coinInfo?.name} Value Statistics
+                    </Title>
+                    <p>An overvi showing the stats of {coinInfo?.name}</p>
+                  </Col>
+                </Col>
+                {stats.map(({ title, value, icon }) => (
+                  <Col className="crypto-detals__coin-stats" key={title}>
+                    <Col className="crypto-detals__coin-stats-name">
+                      <Text>{icon}</Text>
+                      <Text>{title}</Text>
+                    </Col>
+                    <Text className="crypto-detals__stats">{value}</Text>
+                  </Col>
+                ))}
               </Col>
-              <Text className="crypto-detals__stats">{value}</Text>
-            </Col>
-          ))}
-        </Col>
 
-        <Col className="crypto-detals__other-info">
-          <Col className="crypto-detals__coin-value-statistics">
-            <Col className="crypto-detals__coin-value-heading">
-              <Title level={3} className="crypto-detals__coin-detailes-heading">
-                Other Statistics
-              </Title>
-              <p>An overvi showing the stats of all cryptocurrencies</p>
-            </Col>
-          </Col>
-          {genericStats.map(({ title, value, icon }, index) => (
-            <Col className="crypto-detals__coin-stats" key={index}>
-              <Col className="crypto-detals__coin-stats-name">
-                <Text>{icon}</Text>
-                <Text>{title}</Text>
+              <Col className="crypto-detals__other-info">
+                <Col className="crypto-detals__coin-value-statistics">
+                  <Col className="crypto-detals__coin-value-heading">
+                    <Title
+                      level={3}
+                      className="crypto-detals__coin-detailes-heading"
+                    >
+                      Other Statistics
+                    </Title>
+                    <p>An overvi showing the stats of all cryptocurrencies</p>
+                  </Col>
+                </Col>
+                {genericStats.map(({ title, value, icon }, index) => (
+                  <Col className="crypto-detals__coin-stats" key={index}>
+                    <Col className="crypto-detals__coin-stats-name">
+                      <Text>{icon}</Text>
+                      <Text>{title}</Text>
+                    </Col>
+                    <Text className="crypto-detals__stats">{value}</Text>
+                  </Col>
+                ))}
               </Col>
-              <Text className="crypto-detals__stats">{value}</Text>
-            </Col>
-          ))}
-        </Col>
-        <Col className="crypto-detals__coin-dash-link">
-          <Row className="crypto-detals__coin-desc">
-            <Title level={3} className="crypto-detals__coin-detals-heading">
-              What is {coinInfo?.name}
-              {coinInfo?.description}
-            </Title>
-          </Row>
-          <Col className="crypto-detals__coin-links">
-            <Title level={3} className="crypto-detals__coin-detals-heading">
-              {coinInfo?.name} Links
-            </Title>
-            {coinInfo?.links.map((link, index) => (
-              <Row className="crypto-detals__coin-link" key={index}>
-                <Title level={5} className="crypto-detals__link-name">
-                  {link.type}
+            </div>
+            <Col className="crypto-detals__coin-dash-link">
+              <Row className="crypto-detals__coin-desc">
+                <Title level={3} className="crypto-detals__coin-detals-heading">
+                  What is {coinInfo?.name}
+                  {coinInfo?.description}
                 </Title>
-                <a href={link.url} target="_blank" rel="noreferrer">
-                  {link.name}
-                </a>
               </Row>
-            ))}
+              <Col className="crypto-detals__coin-links">
+                <Title
+                  level={3}
+                  className="crypto-detals__coin-detals-subtitle"
+                >
+                  {coinInfo?.name} Links
+                </Title>
+                {coinInfo?.links.map((link, index) => (
+                  <Row className="crypto-detals__coin-row" key={index}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="crypto-detals__coin-link"
+                    >
+                      <h5 className="crypto-detals__link-name">{link.type}</h5>
+                      {link.name}
+                    </a>
+                  </Row>
+                ))}
+              </Col>
+            </Col>
           </Col>
-        </Col>
-      </Col>
+        </>
+      )}
     </div>
   );
 }

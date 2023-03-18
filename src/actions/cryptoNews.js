@@ -20,7 +20,7 @@ export function getNews(category, res, rej) {
   cloneOptions.url = baseUrl + "/search";
   cloneOptions.params = {
     q: category,
-    count: "40",
+    count: "50",
     freshness: "Day",
     textFormat: "Raw",
     safeSearch: "Off",

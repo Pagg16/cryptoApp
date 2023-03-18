@@ -1,0 +1,14 @@
+.line-char {
+}
+
+.line-char__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.line-char__price-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

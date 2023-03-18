@@ -1,0 +1,42 @@
+.crypto-detals {
+  max-width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  position: relative;
+  position: relative;
+  height: 100%;
+}
+
+.crypto-detals__coin-detail-container {
+  max-width: 100%;
+}
+
+.crypto-detals__other-info-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.crypto-detals__coin-detals-heading {
+  text-align: center;
+}
+
+.crypto-detals__coin-detals-subtitle {
+  text-align: start;
+}
+
+.crypto-detals__link-name {
+  margin-right: 8px;
+  font-size: 15px;
+  color: black;
+  font-weight: bolder;
+}
+
+.crypto-detals__coin-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

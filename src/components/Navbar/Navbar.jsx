@@ -10,11 +10,13 @@ import {
   MenuOutlined,
 } from "@ant-design/icons";
 
-import userAvatar from "../../images/user-avatar.png";
+import cryptoIcon from "../../images/crypto.png";
+import "./navbar.css";
 
 function Navbar() {
   const [activeMenu, setActiveMenu] = useState(true);
   const [screenSize, setScreenSize] = useState(null);
+  const [activeMenuBts, setActiveMenuBts] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -27,21 +29,33 @@ function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (screenSize < 768) {
+    if (screenSize < 800) {
       setActiveMenu(false);
+      setActiveMenuBts(true);
     } else {
       setActiveMenu(true);
+      setActiveMenuBts(false);
     }
   }, [screenSize]);
+
+  function scrollZeroPos() {
+    window.scrollTo(0, 0);
+  }
 
   return (
     <div className="navbar">
       <div className="navbar__logo-container">
-        <Avatar src={userAvatar} size="large" />
         <Typography.Title level={2} className="navbar__logo">
-          <Link to="/">Cryptocurrency</Link>
+          <Link className="navbar__logo-link" to="/">
+            Cryptocurrency
+            <Avatar
+              className="navbar__logo-icon"
+              src={cryptoIcon}
+              size="large"
+            />
+          </Link>
         </Typography.Title>
-        {activeMenu && (
+        {activeMenuBts && (
           <Button
             className="navbar__menu-control-container"
             onClick={() => setActiveMenu((state) => !state)}
@@ -49,10 +63,17 @@ function Navbar() {
             <MenuOutlined />
           </Button>
         )}
-        {activeMenu && (
+      </div>
+      {activeMenu && (
+        <div className="navbar__menu-container">
           <Menu
+            className="navbar__menu"
             selectable={false}
             theme="dark"
+            onClick={() => {
+              scrollZeroPos();
+              setActiveMenu((state) => !state);
+            }}
             items={[
               {
                 key: "1",
@@ -77,8 +98,8 @@ function Navbar() {
               },
             ]}
           ></Menu>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -8,11 +8,12 @@ import {
   CryptoDetals,
   News,
 } from "../index";
+import "./main.css";
 
 function Main() {
   return (
     <div className="main">
-      <Layout>
+      <Layout className="main__container">
         <Routes>
           <Route exact path="/" element={<Homepage />} />
           <Route exact path="/cryptocurrency" element={<Cryptocurrency />} />

@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 110px;
+  background-color: rgb(207, 207, 207);
+}
+
+.footer__text {
+  text-align: center;
+}
+
+.footer__spider-icon {
+  width: 20px;
+}

@@ -11,19 +11,21 @@ function App() {
   const dispatch = useDispatch();
   const typeNews = useSelector((state) => state.news.typeNews);
 
-  // useEffect(() => {
-  //   dispatch(showLoading());
-  //   Promise.all([
-  //     new Promise((res, rej) => dispatch(getCoins(res, rej))),
-  //     new Promise((res, rej) => dispatch(getNews(typeNews, res, rej))),
-  //   ]).finally(() => dispatch(hideLoading()));
-  // }, []);
+  useEffect(() => {
+    dispatch(showLoading());
+    Promise.all([
+      new Promise((res, rej) => dispatch(getCoins(res, rej))),
+      new Promise((res, rej) => dispatch(getNews(typeNews, res, rej))),
+    ]).finally(() => dispatch(hideLoading()));
+  }, []);
 
   return (
     <div className="app">
       <Navbar />
-      <Main />
-      <Footer />
+      <div className="app__container">
+        <Main />
+        <Footer />
+      </div>
     </div>
   );
 }

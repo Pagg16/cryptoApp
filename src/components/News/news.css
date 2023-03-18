@@ -1,3 +1,31 @@
+.news {
+  padding: 15px 10px 50px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.news__select-icon {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.news__card-avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.news__row {
+  max-width: 100%;
+}
+
+.news__col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .news__card-image {
   height: 40px;
 }

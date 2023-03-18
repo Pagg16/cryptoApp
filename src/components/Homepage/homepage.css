@@ -1,0 +1,30 @@
+.homepage {
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 5px 20px;
+  position: relative;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.homepage__heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-bottom: 20px;
+}
+
+.homepage__heading-col {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+@media screen and (max-width: 485px) {
+  .homepage__heading,
+  .homepage__heading-row {
+    display: none;
+  }
+}

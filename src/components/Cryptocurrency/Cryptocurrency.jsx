@@ -4,11 +4,12 @@ import { Link, link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
 import { useSelector } from "react-redux";
 
+import searchIcon from "../../images/search.png";
+
 import "./cryptocurrency.css";
 
 function Cryptocurrency({ simple }) {
   const [searchThrem, setSearchThrem] = useState("");
-  const isLoading = useSelector((state) => state.app.loading);
   const coins = useSelector((state) => state.coins.coins?.data?.coins);
   const [filterCoins, setFilterCoins] = useState(coins);
 
@@ -34,9 +35,14 @@ function Cryptocurrency({ simple }) {
     <div className="cryptocurrency">
       {!!!simple && (
         <div className="cryptocurrency__search">
+          <img
+            src={searchIcon}
+            alt="icon-search"
+            className="cryptocurrency__search-icon"
+          />
           <Input
             value={searchThrem}
-            plaseholder="Search Cryptocurrency"
+            placeholder="Search Cryptocurrency"
             onChange={(e) => {
               const value = e.target.value;
               setSearchThrem(value);

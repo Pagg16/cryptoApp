@@ -1,0 +1,32 @@
+.exchanges {
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 10px 15px 0;
+  position: relative;
+  min-height: 100%;
+}
+
+.exchanges__row-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exchanges__secect {
+  width: 150px;
+}
+
+.exchanges__col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exchanges__select-icon {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.exchange-image {
+  margin: 0 5px;
+}

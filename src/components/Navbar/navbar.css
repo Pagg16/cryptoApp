@@ -1,0 +1,57 @@
+.navbar {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.navbar__logo-container {
+  padding: 0 15px;
+}
+
+.navbar__logo {
+  margin-top: 0.5em;
+}
+
+.navbar__logo-icon {
+  margin-left: 10px;
+}
+
+.navbar__logo-link {
+  white-space: nowrap;
+}
+
+.navbar__menu-control-container {
+  margin-left: auto;
+}
+
+.navbar__menu {
+  top: 20px;
+  position: sticky;
+}
+
+.navbar__menu-container {
+  flex-grow: 2;
+  background-color: #001529;
+}
+
+@media screen and (max-width: 800px) {
+  .navbar {
+    min-height: auto;
+  }
+
+  .navbar__menu-container {
+    position: absolute;
+    z-index: 4;
+    top: 100%;
+    height: calc(100vh - 100%);
+    border-radius: 10px;
+  }
+  .navbar__menu-control-container {
+    margin-bottom: 10px;
+  }
+  .navbar__menu {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
